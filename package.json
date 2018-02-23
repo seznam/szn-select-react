@@ -1,6 +1,6 @@
 {
   "name": "@jurca/szn-select-react",
-  "version": "0.0.1",
+  "version": "0.0.9",
   "description": "Szn-select integration for React projects.",
   "main": "index.js",
   "scripts": {
@@ -27,7 +27,8 @@
   },
   "homepage": "https://github.com/jurca/szn-select-react#readme",
   "peerDependencies": {
-    "react": "*"
+    "react": "*",
+    "prop-types": "*"
   },
   "devDependencies": {
     "eslint": "^4.18.1",
