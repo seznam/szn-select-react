@@ -1,0 +1,37 @@
+{
+  "name": "@jurca/szn-select-react",
+  "version": "0.0.1",
+  "description": "Szn-select integration for React projects.",
+  "main": "index.js",
+  "scripts": {
+    "test": "eslint --max-warnings=0 *.js a11y/*.js && jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jurca/szn-select-react.git"
+  },
+  "keywords": [
+    "a11y",
+    "select",
+    "web",
+    "component",
+    "components",
+    "szn",
+    "seznam",
+    "seznam.cz"
+  ],
+  "author": "Martin Jurča <martin.jurca@firma.seznam.cz>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jurca/szn-select-react/issues"
+  },
+  "homepage": "https://github.com/jurca/szn-select-react#readme",
+  "peerDependencies": {
+    "react": "*"
+  },
+  "devDependencies": {
+    "eslint": "^4.18.1",
+    "eslint-config-fbjs-opensource": "^1.0.0",
+    "jest": "^22.4.2"
+  }
+}

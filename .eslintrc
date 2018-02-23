@@ -1,0 +1,6 @@
+{
+  "extends": "fbjs-opensource",
+  "rules": {
+    "semi": ["error", "never"]
+  }
+}
