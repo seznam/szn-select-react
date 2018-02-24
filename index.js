@@ -90,7 +90,7 @@ export default class SznSelect extends React.Component {
 
     const loaderOptions = this.props.loaderOptions || DEFAULT_LOADER_OPTIONS
     if (loaderOptions.useEmbeddedLoader) {
-      const bundleScript = makeSznSelectBundleScript()
+      const bundleScript = loadSznSelect()
       document.head.appendChild(bundleScript)
       return
     }
@@ -101,7 +101,6 @@ export default class SznSelect extends React.Component {
     const urls = loaderOptions.urls || {}
     const providedPackageUrl = urls.package || DEFAULT_LOADER_OPTIONS.urls.package
     const packageUrl = /\/$/.test(providedPackageUrl) ? providedPackageUrl : `${providedPackageUrl}/`
-    loaderScript.src = urls.loader || `${packageUrl}loader.min.js`
 
     loaderScript.setAttribute('data-szn-select--loader-urls--package', packageUrl)
     if (urls.element && urls.element.es3) {
@@ -125,6 +124,8 @@ export default class SznSelect extends React.Component {
     if (urls.bundle && urls.bundle.ce) {
       loaderScript.setAttribute('data-szn-select--loader-urls--bundle-ce', urls.bundle.ce)
     }
+
+    loaderScript.src = urls.loader || `${packageUrl}loader.min.js`
 
     document.head.appendChild(loaderScript)
   }
@@ -170,4 +171,8 @@ export default class SznSelect extends React.Component {
   }
 }
 
-// %{EMBEDDABLE_LOADER}%
+function loadSznSelect() {
+  // %{EMBEDDABLE_LOADER}%
+
+  return makeSznSelectBundleScript()
+}
