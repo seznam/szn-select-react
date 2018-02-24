@@ -9,6 +9,7 @@ const UI_CONTAINER_PROPS = {'data-szn-select--ui': ''}
 
 const DEFAULT_LOADER_OPTIONS = {
   useEmbeddedLoader: false,
+  useAsyncLoading: true,
   urls: {
     package: 'https://unpkg.com/@jurca/szn-select@<VERSION>/',
   },
@@ -20,18 +21,18 @@ const PROP_TYPES = {
 
   loaderOptions: PropTypes.shape({
     useEmbeddedLoader: PropTypes.bool,
+    useAsyncLoading: PropTypes.bool,
     urls: PropTypes.shape({
       'package': PropTypes.string,
       'loader': PropTypes.string,
       'es3': PropTypes.string,
       'es2016': PropTypes.string,
-      'bundle-elements-es3': PropTypes.string,
-      'bundle-elements-es2016': PropTypes.string,
-      'bundle-full-es3': PropTypes.string,
-      'bundle-full-es2016': PropTypes.string,
-      'bundle-full-ce': PropTypes.string,
+      'bundle-elements.es3': PropTypes.string,
+      'bundle-elements.es2016': PropTypes.string,
+      'bundle-full.es3': PropTypes.string,
+      'bundle-full.es2016': PropTypes.string,
+      'bundle-full.ce': PropTypes.string,
     }),
-    useAsyncLoading: PropTypes.bool,
   }),
 
   children: PropTypes.node,
@@ -86,39 +87,21 @@ export default class SznSelect extends React.Component {
     const loaderOptions = this.props.loaderOptions || DEFAULT_LOADER_OPTIONS
     if (loaderOptions.useEmbeddedLoader) {
       const urlsConfiguration = loaderOptions.urls || DEFAULT_LOADER_OPTIONS.urls
-      const bundleScript = loadSznSelect(urlsConfiguration, loaderOptions.useAsyncLoading)
+      const bundleScript = loadSznSelect(urlsConfiguration, loaderOptions.useAsyncLoading !== false)
       document.head.appendChild(bundleScript)
       return
     }
 
     const loaderScript = document.createElement('script')
-    loaderScript.async = true
+    loaderScript.async = loaderOptions.useAsyncLoading !== false
 
     const urls = loaderOptions.urls || {}
     const providedPackageUrl = urls.package || DEFAULT_LOADER_OPTIONS.urls.package
     const packageUrl = /\/$/.test(providedPackageUrl) ? providedPackageUrl : `${providedPackageUrl}/`
 
     loaderScript.setAttribute('data-szn-select--loader-urls--package', packageUrl)
-    if (urls.es3) {
-      loaderScript.setAttribute('data-szn-select--loader-urls--es3', urls.es3)
-    }
-    if (urls.es2016) {
-      loaderScript.setAttribute('data-szn-select--loader-urls--es2016', urls.es2016)
-    }
-    if (urls['bundle-elements-es3']) {
-      loaderScript.setAttribute('data-szn-select--loader-urls--bundle-elements-es3', urls['bundle-elements-es3'])
-    }
-    if (urls['bundle-elements-es2016']) {
-      loaderScript.setAttribute('data-szn-select--loader-urls--bundle-elements-es2016', urls['bundle-elements-es2016'])
-    }
-    if (urls['bundle-full-es3']) {
-      loaderScript.setAttribute('data-szn-select--loader-urls--bundle-es3', urls['bundle-full-es3'])
-    }
-    if (urls['bundle-full-es2016']) {
-      loaderScript.setAttribute('data-szn-select--loader-urls--bundle-es2016', urls['bundle-full-es2016'])
-    }
-    if (urls['bundle-full-ce']) {
-      loaderScript.setAttribute('data-szn-select--loader-urls--bundle-ce', urls['bundle-full-ce'])
+    for (const urlOption of Object.keys(urls)) {
+      loaderScript.setAttribute(`data-szn-select--loader-urls--${urlOption.replace('.', '-')}`, urls[urlOption])
     }
 
     loaderScript.src = urls.loader || `${packageUrl}loader.min.js`
