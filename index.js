@@ -8,6 +8,7 @@ const READY_EVENT = 'szn-select:ready'
 const UI_CONTAINER_PROPS = {'data-szn-select--ui': ''}
 
 const DEFAULT_LOADER_OPTIONS = {
+  enable: true,
   useEmbeddedLoader: false,
   useAsyncLoading: true,
   urls: {
@@ -20,6 +21,7 @@ const PROP_TYPES = {
   multiple: PropTypes.bool,
 
   loaderOptions: PropTypes.shape({
+    enable: PropTypes.bool,
     useEmbeddedLoader: PropTypes.bool,
     useAsyncLoading: PropTypes.bool,
     urls: PropTypes.shape({
@@ -92,6 +94,10 @@ export default class SznSelect extends React.Component {
     }
 
     const loaderOptions = this.props.loaderOptions || DEFAULT_LOADER_OPTIONS
+    if (loaderOptions.enable === false) {
+      return
+    }
+
     if (loaderOptions.useEmbeddedLoader) {
       const urlsConfiguration = loaderOptions.urls || DEFAULT_LOADER_OPTIONS.urls
       const bundleScript = loadSznSelect(urlsConfiguration, loaderOptions.useAsyncLoading !== false)
