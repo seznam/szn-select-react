@@ -61,9 +61,16 @@ export default class SznSelect extends React.Component {
   }
 
   render() {
+    let selectProps = this.props
+    if (selectProps.loaderOptions) {
+      // The "rest object properties" syntax is not supported by babel-present-env at the moment
+      selectProps = Object.assign({}, selectProps)
+      delete selectProps.loaderOptions
+    }
+
     return e('szn-select', this.state.sznSelectProps,
-      e('select', this.props,
-        this.props.children,
+      e('select', selectProps,
+        selectProps.children,
       ),
       this._uiContainer,
     )
