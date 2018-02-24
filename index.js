@@ -21,22 +21,17 @@ const PROP_TYPES = {
   loaderOptions: PropTypes.shape({
     useEmbeddedLoader: PropTypes.bool,
     urls: PropTypes.shape({
-      package: PropTypes.string,
-      loader: PropTypes.string,
-      element: PropTypes.shape({
-        es3: PropTypes.string,
-        es2016: PropTypes.string,
-      }),
-      elements: PropTypes.shape({
-        es3: PropTypes.string,
-        es2016: PropTypes.string,
-      }),
-      bundle: PropTypes.shape({
-        es3: PropTypes.string,
-        es2016: PropTypes.string,
-        ce: PropTypes.string,
-      }),
+      'package': PropTypes.string,
+      'loader': PropTypes.string,
+      'es3': PropTypes.string,
+      'es2016': PropTypes.string,
+      'bundle-elements-es3': PropTypes.string,
+      'bundle-elements-es2016': PropTypes.string,
+      'bundle-full-es3': PropTypes.string,
+      'bundle-full-es2016': PropTypes.string,
+      'bundle-full-ce': PropTypes.string,
     }),
+    useAsyncLoading: PropTypes.bool,
   }),
 
   children: PropTypes.node,
@@ -90,7 +85,8 @@ export default class SznSelect extends React.Component {
 
     const loaderOptions = this.props.loaderOptions || DEFAULT_LOADER_OPTIONS
     if (loaderOptions.useEmbeddedLoader) {
-      const bundleScript = loadSznSelect()
+      const urlsConfiguration = loaderOptions.urls || DEFAULT_LOADER_OPTIONS.urls
+      const bundleScript = loadSznSelect(urlsConfiguration, loaderOptions.useAsyncLoading)
       document.head.appendChild(bundleScript)
       return
     }
@@ -103,26 +99,26 @@ export default class SznSelect extends React.Component {
     const packageUrl = /\/$/.test(providedPackageUrl) ? providedPackageUrl : `${providedPackageUrl}/`
 
     loaderScript.setAttribute('data-szn-select--loader-urls--package', packageUrl)
-    if (urls.element && urls.element.es3) {
-      loaderScript.setAttribute('data-szn-select--loader-urls--element-es3', urls.element.es3)
+    if (urls.es3) {
+      loaderScript.setAttribute('data-szn-select--loader-urls--es3', urls.es3)
     }
-    if (urls.element && urls.element.es2016) {
-      loaderScript.setAttribute('data-szn-select--loader-urls--element-es2016', urls.element.es2016)
+    if (urls.es2016) {
+      loaderScript.setAttribute('data-szn-select--loader-urls--es2016', urls.es2016)
     }
-    if (urls.elements && urls.elements.es3) {
-      loaderScript.setAttribute('data-szn-select--loader-urls--element-bundle-es3', urls.elements.es3)
+    if (urls['bundle-elements-es3']) {
+      loaderScript.setAttribute('data-szn-select--loader-urls--bundle-elements-es3', urls['bundle-elements-es3'])
     }
-    if (urls.elements && urls.elements.es2016) {
-      loaderScript.setAttribute('data-szn-select--loader-urls--element-bundle-es2016', urls.elements.es2016)
+    if (urls['bundle-elements-es2016']) {
+      loaderScript.setAttribute('data-szn-select--loader-urls--bundle-elements-es2016', urls['bundle-elements-es2016'])
     }
-    if (urls.bundle && urls.bundle.es3) {
-      loaderScript.setAttribute('data-szn-select--loader-urls--bundle-es3', urls.bundle.es3)
+    if (urls['bundle-full-es3']) {
+      loaderScript.setAttribute('data-szn-select--loader-urls--bundle-es3', urls['bundle-full-es3'])
     }
-    if (urls.bundle && urls.bundle.es2016) {
-      loaderScript.setAttribute('data-szn-select--loader-urls--bundle-es2016', urls.bundle.es2016)
+    if (urls['bundle-full-es2016']) {
+      loaderScript.setAttribute('data-szn-select--loader-urls--bundle-es2016', urls['bundle-full-es2016'])
     }
-    if (urls.bundle && urls.bundle.ce) {
-      loaderScript.setAttribute('data-szn-select--loader-urls--bundle-ce', urls.bundle.ce)
+    if (urls['bundle-full-ce']) {
+      loaderScript.setAttribute('data-szn-select--loader-urls--bundle-ce', urls['bundle-full-ce'])
     }
 
     loaderScript.src = urls.loader || `${packageUrl}loader.min.js`
@@ -171,8 +167,8 @@ export default class SznSelect extends React.Component {
   }
 }
 
-function loadSznSelect() {
+function loadSznSelect(urlConfiguration, useAsyncLoading) {
   // %{EMBEDDABLE_LOADER}%
 
-  return makeSznSelectBundleScript()
+  return makeSznSelectBundleScript(urlConfiguration, useAsyncLoading)
 }
