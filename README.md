@@ -165,7 +165,41 @@ The loader options are:
     [custom elements](https://mdn.io/Window/customElements) API if no
     dependencies are loaded yet.
 
-TODO: sync loading - see self-hosted deployment
+## Synchronous szn-select element loading
+
+The downside of letting the `<SznSelect>` element handle all the work is that
+the implementation of the underlying `<szn-select>` element is loaded
+asynchronously. This may lead to a
+[FOUC](https://en.wikipedia.org/wiki/Flash_of_unstyled_content) or seeing the
+native `<select>` element with the fallback styles applied for a brief moment.
+
+This can be improved by using synchronous loading the `<szn-select>` element
+by injecting the loader into the page ourselves (notice there is no `async`
+nor `defer` attribute):
+
+```html
+<script src="https://unpkg.com/@jurca/szn-select@<VERSION>/loader.min.js"></script>
+```
+
+Since the script would be executed synchronously, the loader will inject the
+bundle using `document.write()`, which will load the `<szn-select>` element
+before the `DOMContentLoaded` event occurs.
+
+The downside to the example above is that the script is loaded from another
+domain than your website, and Chrome will
+[block](https://www.chromestatus.com/feature/5718547946799104) the loading the
+of bundle on 2G connections. This can be resolved by hosting the files
+yourselves (see below).
+
+There is another issue to be considered when using server-side rendering in
+combination with React: Executing the `<szn-select>`'s bundle before the React
+rehydrates the server-rendered DOM will result in the DOM being different from
+React's expectations. This will cause only a warning with React 16 and
+function normally, however, React 15 or older will probably remove the
+`<szn-select>`s UI elements, which will result in an invisible unusable
+select. To fix this, run React's rehydration (`ReactDOM.hydrate()` in
+React 16, `ReactDOM.render()` in React 15 or older) synchronously during
+document parsing and before the loader script is included.
 
 ## Self-hosted deployment
 
