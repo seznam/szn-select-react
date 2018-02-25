@@ -17,7 +17,7 @@ npm install --save @jurca/szn-select-react
 
 The `<szn-select>` (as the `SznSelect` component) element can be then used the
 same way as you would use a `<select>` element in your project. The following
-example shows various options:
+example shows various usage options:
 
 ```jsx harmony
 import React from 'react'
