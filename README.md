@@ -183,7 +183,9 @@ nor `defer` attribute):
 
 Since the script would be executed synchronously, the loader will inject the
 bundle using `document.write()`, which will load the `<szn-select>` element
-before the `DOMContentLoaded` event occurs.
+before the `DOMContentLoaded` event occurs. The `<SznSelect>` component will
+recognize that the `szn-select` element has been already loaded and will not
+inject the loader repeatedly.
 
 The downside to the example above is that the script is loaded from another
 domain than your website, and Chrome will
@@ -199,7 +201,8 @@ function normally, however, React 15 or older will probably remove the
 `<szn-select>`s UI elements, which will result in an invisible unusable
 select. To fix this, run React's rehydration (`ReactDOM.hydrate()` in
 React 16, `ReactDOM.render()` in React 15 or older) synchronously during
-document parsing and before the loader script is included.
+document parsing and before the loader script is included, and setting the
+`enable` flag in the loader options to `false`.
 
 ## Self-hosted deployment
 
