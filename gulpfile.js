@@ -52,6 +52,7 @@ const compile = gulp.series(
 
 function copyMetaFiles() {
   return gulp.src(['package.json', './LICENSE', './README.md'])
+    .pipe(replace('<VERSION>', compatibleVersionRange))
     .pipe(gulp.dest('./dist'))
 }
 
