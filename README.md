@@ -206,4 +206,20 @@ document parsing and before the loader script is included, and setting the
 
 ## Self-hosted deployment
 
-TODO
+For some reason or another it might be practical for you to host the bundle
+files yourselves. First, start by installing the `szn-select` package:
+
+```
+npm install --save @jurca/szn-select@<VERSION>
+```
+
+Next, make the files in the npm module available in your project over HTTP as
+static assets.
+
+The final step depends on your preferred way of loading the bundle:
+* if you leave the bundle loading to the `<SznSelect>` element, provide the
+  `loaderOptions` prop with the `urls` object. Having the `urls.package`
+  option is usually enough.
+* if you are using synchronous loading (see above), use
+  [these data attributes](https://www.npmjs.com/package/@jurca/szn-select#usage-on-static-or-server-rendered-websites)
+  on the loader's `<script>` element.
