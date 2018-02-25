@@ -16,9 +16,13 @@ const DEFAULT_LOADER_OPTIONS = {
   },
 }
 
+// No need to specify every supported prop, any other prop is validated by the <select> element anyway
 const PROP_TYPES = {
+  id: PropTypes.string,
+  name: PropTypes.string,
   disabled: PropTypes.bool,
   multiple: PropTypes.bool,
+  onChange: PropTypes.func,
 
   loaderOptions: PropTypes.shape({
     enable: PropTypes.bool,
