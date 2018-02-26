@@ -217,9 +217,10 @@ Next, make the files in the npm module available in your project over HTTP as
 static assets.
 
 The final step depends on your preferred way of loading the bundle:
-* if you leave the bundle loading to the `<SznSelect>` element, provide the
+* if you leave the bundle loading to the `<SznSelect>` component, provide the
   `loaderOptions` prop with the `urls` object. Having the `urls.package`
-  option is usually enough.
+  option is usually enough, point it to your local URL at which you made the
+  `szn-select`'s files available.
 * if you are using synchronous loading (see above), use
   [these data attributes](https://www.npmjs.com/package/@jurca/szn-select#usage-on-static-or-server-rendered-websites)
   on the loader's `<script>` element.
