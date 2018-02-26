@@ -34,7 +34,7 @@
     "prop-types": "*"
   },
   "devDependencies": {
-    "@jurca/szn-select": "0.0.11",
+    "@jurca/szn-select": "^1.0.0",
     "babel-preset-env": "^1.6.1",
     "del": "^3.0.0",
     "eslint": "^4.18.1",
