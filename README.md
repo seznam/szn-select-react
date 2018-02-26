@@ -29,7 +29,7 @@ export default props =>
       <label htmlFor='mySelect'>
         Choose one
       </label>
-      {/* use the <SznSelect> component as if if was an ordinary <select> element */}
+      {/* use the <SznSelect> component as if it was an ordinary <select> element */}
       <SznSelect name='singleOption' id='mySelect' onChange={props.onFirstChanged}>
         <option value='1'>first</option>
         <option value='2' selected>second</option>
