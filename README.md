@@ -136,6 +136,12 @@ The loader options are:
     available. This can be overridden on per-file basis using the options
     below. Defaults to `https://unpkg.com/@jurca/szn-select@<VERSION>/`, the
     trailing slash is optional.
+    
+    It is recommended to use a
+    [semver version range](https://docs.npmjs.com/misc/semver#caret-ranges-123-025-004)
+    when using unpkg or a similar JS CDN, such as `1.x` to automatically
+    receive the latest compatible version with the most recent bugfixes and
+    compatibility updates.
   * `loader` - the URL override for the full-featured loader. This option has
     no effect when the `useEmbeddedLoader` is set to `true`.
   * `es3` - the URL override for the ES3-compatible implementation of the
