@@ -102,7 +102,7 @@ import React from 'react'
 import SznSelect from '@jurca/szn-select-react'
 
 const LOADER_OPTIONS = {
-  // loaders options go here, se below fo details
+  // loaders options go here, see below for details
 }
 
 export default props =>
