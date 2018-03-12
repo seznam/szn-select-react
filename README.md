@@ -179,9 +179,9 @@ asynchronously. This may lead to a
 [FOUC](https://en.wikipedia.org/wiki/Flash_of_unstyled_content) or seeing the
 native `<select>` element with the fallback styles applied for a brief moment.
 
-This can be improved by using synchronous loading the `<szn-select>` element
-by injecting the loader into the page ourselves (notice there is no `async`
-nor `defer` attribute):
+This can be improved by using synchronous loading of the `<szn-select>`
+element by injecting the loader into the page ourselves (notice there is no
+`async` nor `defer` attribute):
 
 ```html
 <script src="https://unpkg.com/@jurca/szn-select@<VERSION>/loader.min.js"></script>
