@@ -13,7 +13,7 @@ First install the package:
 
 ```
 npm install --save @jurca/szn-select-react
-``` 
+```
 
 The `<szn-select>` (as the `SznSelect` component) element can be then used the
 same way as you would use a `<select>` element in your project. The following
@@ -30,9 +30,9 @@ export default props =>
         Choose one
       </label>
       {/* use the <SznSelect> component as if it was an ordinary <select> element */}
-      <SznSelect name='singleOption' id='mySelect' onChange={props.onFirstChanged}>
+      <SznSelect name='singleOption' id='mySelect' onChange={props.onFirstChanged} defaultValue='2'>
         <option value='1'>first</option>
-        <option value='2' selected>second</option>
+        <option value='2'>second</option>
         <optgroup label='this is a group'>
           <option value='3'>option groups are supported as well</option>
         </optgroup>
@@ -136,7 +136,7 @@ The loader options are:
     available. This can be overridden on per-file basis using the options
     below. Defaults to `https://unpkg.com/@jurca/szn-select@<VERSION>/`, the
     trailing slash is optional.
-    
+
     It is recommended to use a
     [semver version range](https://docs.npmjs.com/misc/semver#caret-ranges-123-025-004)
     when using unpkg or a similar JS CDN, such as `1.x` to automatically
