@@ -22,6 +22,8 @@ const PROP_TYPES = {
   name: PropTypes.string,
   disabled: PropTypes.bool,
   multiple: PropTypes.bool,
+  defaultValue: PropTypes.string,
+  value: PropTypes.string,
   onChange: PropTypes.func,
 
   loaderOptions: PropTypes.shape({
