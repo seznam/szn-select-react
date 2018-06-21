@@ -57,8 +57,10 @@ export default class SznSelect extends React.Component {
     super(props)
 
     this._previousRootNode = null
+    this._nativeSelect = null
     this._uiContainer = e('span', UI_CONTAINER_PROPS) // we don't want the UI container updated
     this._onRootNodeUpdate = this.onRootNodeUpdate.bind(this)
+    this._onNativeSelectNodeUpdate = this.onNativeSelectNodeUpdate.bind(this)
     this._onSelectReady = this.onSelectReady.bind(this)
 
     this.state = {
@@ -69,10 +71,11 @@ export default class SznSelect extends React.Component {
   }
 
   render() {
-    let selectProps = this.props
+    // The "rest object properties" syntax is not supported by babel-present-env at the moment
+    const selectProps = Object.assign({
+      ref: this._onNativeSelectNodeUpdate,
+    }, this.props)
     if (selectProps.loaderOptions) {
-      // The "rest object properties" syntax is not supported by babel-present-env at the moment
-      selectProps = Object.assign({}, selectProps)
       delete selectProps.loaderOptions
     }
 
@@ -128,6 +131,13 @@ export default class SznSelect extends React.Component {
     document.head.appendChild(loaderScript)
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.value !== this.props.value && this._nativeSelect) {
+      // Let the szn-select know that the value, managed by React, has changed, so the UI can get updated.
+      this._nativeSelect.dispatchEvent(new CustomEvent('change'))
+    }
+  }
+
   onRootNodeUpdate(rootNode) {
     if (rootNode === this._previousRootNode) {
       return
@@ -144,6 +154,10 @@ export default class SznSelect extends React.Component {
         this._handleAttributesUpdate(rootNode.requestedAttributes)
       }
     }
+  }
+
+  onNativeSelectNodeUpdate(nativeSelect) {
+    this._nativeSelect = nativeSelect
   }
 
   onSelectReady(event) {
