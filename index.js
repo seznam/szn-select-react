@@ -62,10 +62,12 @@ export default class SznSelect extends React.Component {
     this._onRootNodeUpdate = this.onRootNodeUpdate.bind(this)
     this._onNativeSelectNodeUpdate = this.onNativeSelectNodeUpdate.bind(this)
     this._onSelectReady = this.onSelectReady.bind(this)
+    this._initCallbackDelayedExecutionId = null
 
     this.state = {
       sznSelectProps: {
-        ref: this._onRootNodeUpdate,
+        'data-szn-elements--init-on-demand': '',
+        'ref': this._onRootNodeUpdate,
       },
     }
   }
@@ -145,10 +147,18 @@ export default class SznSelect extends React.Component {
 
     if (this._previousRootNode) {
       this._previousRootNode.removeEventListener(READY_EVENT, this._onSelectReady)
+      if (this._previousRootNode._broker) {
+        this._previousRootNode._broker.onUnmount()  // no check needed, szn-select relies on the onUnmount callback
+      }
+      if (this._initCallbackDelayedExecutionId) {
+        cancelAnimationFrame(this._initCallbackDelayedExecutionId)
+        this._initCallbackDelayedExecutionId = null
+      }
     }
 
     this._previousRootNode = rootNode
     if (rootNode) {
+      this._awaitAndFinalizeInitialization(rootNode)
       rootNode.addEventListener(READY_EVENT, this._onSelectReady)
       if (rootNode.isReady && rootNode.requestedAttributes) {
         this._handleAttributesUpdate(rootNode.requestedAttributes)
@@ -180,6 +190,20 @@ export default class SznSelect extends React.Component {
       }
     }
     return currentAttributes
+  }
+
+  _awaitAndFinalizeInitialization(sznSelectNode) {
+    const readyCheckCallback = () => {
+      if (sznSelectNode._broker) {
+        sznSelectNode._broker.onMount() // no check needed, szn-select relies on the onMount callback
+      } else {
+        this._initCallbackDelayedExecutionId = requestAnimationFrame(readyCheckCallback)
+      }
+    }
+
+    // Run immediately in case we're already initialized, which is always the case with a pre-loaded custom elements
+    // runtime.
+    readyCheckCallback()
   }
 }
 
