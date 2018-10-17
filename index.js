@@ -148,7 +148,7 @@ export default class SznSelect extends React.Component {
     if (this._previousRootNode) {
       this._previousRootNode.removeEventListener(READY_EVENT, this._onSelectReady)
       if (this._previousRootNode._broker) {
-        this._previousRootNode._broker.onUnmount()  // no check needed, szn-select relies on the onUnmount callback
+        this._previousRootNode._broker.onUnmount() // no check needed, szn-select relies on the onUnmount callback
       }
       if (this._initCallbackDelayedExecutionId) {
         cancelAnimationFrame(this._initCallbackDelayedExecutionId)
