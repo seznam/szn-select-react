@@ -81,6 +81,9 @@ export default class SznSelect extends React.Component {
     if (selectProps.loaderOptions) {
       delete selectProps.loaderOptions
     }
+    if (selectProps.hasOwnProperty('dropdownClassName')) {
+      delete selectProps.dropdownClassName
+    }
 
     return e('szn-select', this.state.sznSelectProps,
       e('select', selectProps,
