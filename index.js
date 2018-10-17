@@ -24,6 +24,7 @@ const PROP_TYPES = {
   multiple: PropTypes.bool,
   defaultValue: PropTypes.string,
   value: PropTypes.string,
+  dropdownClassName: PropTypes.string,
   onChange: PropTypes.func,
 
   loaderOptions: PropTypes.shape({
@@ -138,6 +139,9 @@ export default class SznSelect extends React.Component {
       // Let the szn-select know that the value, managed by React, has changed, so the UI can get updated.
       this._nativeSelect.dispatchEvent(new CustomEvent('change'))
     }
+    if (prevProps.dropdownClassName !== this.props.dropdownClassName && this._previousRootNode._broker) {
+      this._previousRootNode.dropdownClassName = this.props.dropdownClassName
+    }
   }
 
   onRootNodeUpdate(rootNode) {
@@ -196,6 +200,7 @@ export default class SznSelect extends React.Component {
     const readyCheckCallback = () => {
       if (sznSelectNode._broker) {
         sznSelectNode._broker.onMount() // no check needed, szn-select relies on the onMount callback
+        sznSelectNode.dropdownClassName = this.props.dropdownClassName || ''
       } else {
         this._initCallbackDelayedExecutionId = requestAnimationFrame(readyCheckCallback)
       }
