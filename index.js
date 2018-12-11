@@ -25,6 +25,7 @@ const PROP_TYPES = {
   defaultValue: PropTypes.string,
   value: PropTypes.string,
   dropdownClassName: PropTypes.string,
+  dropdownAutoStretch: PropTypes.bool,
   onChange: PropTypes.func,
 
   loaderOptions: PropTypes.shape({
@@ -83,6 +84,9 @@ export default class SznSelect extends React.Component {
     }
     if (selectProps.hasOwnProperty('dropdownClassName')) {
       delete selectProps.dropdownClassName
+    }
+    if (selectProps.hasOwnProperty('dropdownAutoStretch')) {
+      delete selectProps.dropdownAutoStretch
     }
 
     return e('szn-select', this.state.sznSelectProps,
@@ -145,6 +149,9 @@ export default class SznSelect extends React.Component {
     if (prevProps.dropdownClassName !== this.props.dropdownClassName && this._previousRootNode._broker) {
       this._previousRootNode.dropdownClassName = this.props.dropdownClassName
     }
+    if (prevProps.dropdownAutoStretch !== this.props.dropdownAutoStretch && this._previousRootNode._broker) {
+      this._previousRootNode.dropdownAutoStretch = this.props.dropdownAutoStretch
+    }
   }
 
   onRootNodeUpdate(rootNode) {
@@ -204,6 +211,7 @@ export default class SznSelect extends React.Component {
       if (sznSelectNode._broker) {
         sznSelectNode._broker.onMount() // no check needed, szn-select relies on the onMount callback
         sznSelectNode.dropdownClassName = this.props.dropdownClassName || ''
+        sznSelectNode.dropdownAutoStretch = this.props.dropdownAutoStretch || false
       } else {
         this._initCallbackDelayedExecutionId = requestAnimationFrame(readyCheckCallback)
       }
