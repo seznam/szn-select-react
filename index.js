@@ -16,6 +16,12 @@ const DEFAULT_LOADER_OPTIONS = {
   },
 }
 
+const SZN_SELECT_PROPERTIES = [
+  'minBottomSpace',
+  'dropdownClassName',
+  'dropdownContainer',
+]
+
 // No need to specify every supported prop, any other prop is validated by the <select> element anyway
 const PROP_TYPES = {
   id: PropTypes.string,
@@ -24,7 +30,9 @@ const PROP_TYPES = {
   multiple: PropTypes.bool,
   defaultValue: PropTypes.string,
   value: PropTypes.string,
+  minBottomSpace: PropTypes.number,
   dropdownClassName: PropTypes.string,
+  dropdownContainer: PropTypes.instanceOf(Node),
   onChange: PropTypes.func,
 
   loaderOptions: PropTypes.shape({
@@ -81,8 +89,8 @@ export default class SznSelect extends React.Component {
     if (selectProps.loaderOptions) {
       delete selectProps.loaderOptions
     }
-    if (selectProps.hasOwnProperty('dropdownClassName')) {
-      delete selectProps.dropdownClassName
+    for (const sznSelectProperty of SZN_SELECT_PROPERTIES) {
+      delete selectProps[sznSelectProperty]
     }
 
     return e('szn-select', this.state.sznSelectProps,
@@ -142,8 +150,10 @@ export default class SznSelect extends React.Component {
       // Let the szn-select know that the value, managed by React, has changed, so the UI can get updated.
       this._nativeSelect.dispatchEvent(new CustomEvent('change'))
     }
-    if (prevProps.dropdownClassName !== this.props.dropdownClassName && this._previousRootNode._broker) {
-      this._previousRootNode.dropdownClassName = this.props.dropdownClassName
+    for (const sznSelectProperty of SZN_SELECT_PROPERTIES) {
+      if (prevProps[sznSelectProperty] !== this.props[sznSelectProperty] && this._previousRootNode._broker) {
+        this._previousRootNode[sznSelectProperty] = this.props[sznSelectProperty]
+      }
     }
   }
 
@@ -203,7 +213,11 @@ export default class SznSelect extends React.Component {
     const readyCheckCallback = () => {
       if (sznSelectNode._broker) {
         sznSelectNode._broker.onMount() // no check needed, szn-select relies on the onMount callback
-        sznSelectNode.dropdownClassName = this.props.dropdownClassName || ''
+        for (const sznSelectProperty of SZN_SELECT_PROPERTIES) {
+          if (sznSelectProperty in this.props) {
+            sznSelectNode[sznSelectProperty] = this.props[sznSelectProperty]
+          }
+        }
       } else {
         this._initCallbackDelayedExecutionId = requestAnimationFrame(readyCheckCallback)
       }
