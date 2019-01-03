@@ -32,7 +32,7 @@ const PROP_TYPES = {
   value: PropTypes.string,
   minBottomSpace: PropTypes.number,
   dropdownClassName: PropTypes.string,
-  dropdownContainer: PropTypes.instanceOf(Node),
+  dropdownContainer: PropTypes.instanceOf(typeof Node !== 'undefined' ? Node : Object),
   onChange: PropTypes.func,
 
   loaderOptions: PropTypes.shape({
