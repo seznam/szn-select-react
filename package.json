@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jurca/szn-select-react.git"
+    "url": "git+https://github.com/seznam/szn-select-react.git"
   },
   "keywords": [
     "a11y",
@@ -26,9 +26,9 @@
   "author": "Martin Jurča <martin.jurca@firma.seznam.cz>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/jurca/szn-select-react/issues"
+    "url": "https://github.com/seznam/szn-select-react/issues"
   },
-  "homepage": "https://github.com/jurca/szn-select-react#readme",
+  "homepage": "https://github.com/seznam/szn-select-react#readme",
   "peerDependencies": {
     "react": "*",
     "prop-types": "*"
