@@ -37,7 +37,6 @@
     "@babel/core": "^7.4.4",
     "@babel/preset-env": "^7.4.4",
     "@seznam/szn-select": "^1.4.5",
-    "babel-preset-env": "^1.6.1",
     "del": "^4.1.1",
     "eslint": "^5.16.0",
     "eslint-config-fbjs-opensource": "^2.0.0",
