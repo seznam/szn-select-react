@@ -1,5 +1,5 @@
 {
-  "name": "@jurca/szn-select-react",
+  "name": "@seznam/szn-select-react",
   "version": "1.4.1",
   "description": "Szn-select integration for React projects.",
   "main": "index.js",
