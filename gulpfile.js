@@ -35,7 +35,7 @@ async function injectLoader(done) {
 function compileModule() {
   return gulp.src('./dist/index.js')
     .pipe(babel({
-      presets: [['env', {
+      presets: [['@babel/preset-env', {
         targets: {
           node: '8', // current LTS
         },
