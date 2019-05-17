@@ -12,7 +12,7 @@ const DEFAULT_LOADER_OPTIONS = {
   useEmbeddedLoader: false,
   useAsyncLoading: true,
   urls: {
-    package: 'https://unpkg.com/@jurca/szn-select@<VERSION>/',
+    package: 'https://unpkg.com/@seznam/szn-select@<VERSION>/',
   },
 }
 

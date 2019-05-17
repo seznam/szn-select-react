@@ -1,18 +1,18 @@
 # szn-select-react
 
-[![npm](http://img.shields.io/npm/v/@jurca/szn-select-react.svg)](https://www.npmjs.com/package/@jurca/szn-select-react)
-[![License](https://img.shields.io/npm/l/@jurca/szn-select-react.svg)](https://github.com/jurca/szn-select-react/blob/master/LICENSE)
+[![npm](http://img.shields.io/npm/v/@seznam/szn-select-react.svg)](https://www.npmjs.com/package/@seznam/szn-select-react)
+[![License](https://img.shields.io/npm/l/@seznam/szn-select-react.svg)](https://github.com/seznam/szn-select-react/blob/master/LICENSE)
 
 Accessible HTML `<select>` element replacement with customizable UI. This
 package provides integration of the
-[szn-select](https://github.com/jurca/szn-select) project for React projects.
+[szn-select](https://github.com/seznam/szn-select) project for React projects.
 
 ## Usage
 
 First install the package:
 
 ```
-npm install --save @jurca/szn-select-react
+npm install --save @seznam/szn-select-react
 ```
 
 The `<szn-select>` (as the `SznSelect` component) element can be then used the
@@ -21,7 +21,7 @@ example shows various usage options:
 
 ```jsx harmony
 import React from 'react'
-import SznSelect from '@jurca/szn-select-react'
+import SznSelect from '@seznam/szn-select-react'
 
 export default props =>
   <form action='/submit-form' method='post'>
@@ -61,13 +61,13 @@ the native `<select>` element that would be where the `<SznSelect>` component
 is used:
 
 ```html
-<link rel="stylesheet" href="https://unpkg.com/@jurca/szn-select@<VERSION>/szn-select-nojs.css">
+<link rel="stylesheet" href="https://unpkg.com/@seznam/szn-select@<VERSION>/szn-select-nojs.css">
 ```
 
 ## Configuring the loader
 
 The component, by default, injects the `szn-select`'s
-[loader script](https://www.npmjs.com/package/@jurca/szn-select#usage-on-static-or-server-rendered-websites)
+[loader script](https://www.npmjs.com/package/@seznam/szn-select#usage-on-static-or-server-rendered-websites)
 into the `<head>` to load the latest compatible version of szn-select using
 the latest compatible loader. This technique is used automatically provide
 bugfixes and compatibility updates (compatibility with the assistive
@@ -99,7 +99,7 @@ component, as seen below:
 
 ```jsx harmony
 import React from 'react'
-import SznSelect from '@jurca/szn-select-react'
+import SznSelect from '@seznam/szn-select-react'
 
 const LOADER_OPTIONS = {
   // loaders options go here, see below for details
@@ -132,9 +132,9 @@ The loader options are:
   This option is simply exposed from the underlying loader mechanics. Defaults
   to `true`.
 * `urls` - an object that provides URL overrides for the loader:
-  * `package` - the URL at which the `@jurca/szn-select` package's files are
+  * `package` - the URL at which the `@seznam/szn-select` package's files are
     available. This can be overridden on per-file basis using the options
-    below. Defaults to `https://unpkg.com/@jurca/szn-select@<VERSION>/`, the
+    below. Defaults to `https://unpkg.com/@seznam/szn-select@<VERSION>/`, the
     trailing slash is optional.
 
     It is recommended to use a
@@ -184,7 +184,7 @@ element by injecting the loader into the page ourselves (notice there is no
 `async` nor `defer` attribute):
 
 ```html
-<script src="https://unpkg.com/@jurca/szn-select@<VERSION>/loader.min.js"></script>
+<script src="https://unpkg.com/@seznam/szn-select@<VERSION>/loader.min.js"></script>
 ```
 
 Since the script would be executed synchronously, the loader will inject the
@@ -216,7 +216,7 @@ For some reason or another it might be practical for you to host the bundle
 files yourselves. First, start by installing the `szn-select` package:
 
 ```
-npm install --save @jurca/szn-select@<VERSION>
+npm install --save @seznam/szn-select@<VERSION>
 ```
 
 Next, make the files in the npm module available in your project over HTTP as
@@ -228,5 +228,5 @@ The final step depends on your preferred way of loading the bundle:
   option is usually enough, point it to your local URL at which you made the
   `szn-select`'s files available.
 * if you are using synchronous loading (see above), use
-  [these data attributes](https://www.npmjs.com/package/@jurca/szn-select#usage-on-static-or-server-rendered-websites)
+  [these data attributes](https://www.npmjs.com/package/@seznam/szn-select#usage-on-static-or-server-rendered-websites)
   on the loader's `<script>` element.

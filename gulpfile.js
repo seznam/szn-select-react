@@ -19,7 +19,7 @@ async function injectLoader(done) {
   const writeFile = (fileName, contents) => util.promisify(fs.writeFile)(fileName, contents, 'utf-8')
 
   const [loader, component] = await Promise.all([
-    require.resolve('@jurca/szn-select/embeddableLoader.js'),
+    require.resolve('@seznam/szn-select/embeddableLoader.js'),
     './index.js',
   ].map(readFile))
 
